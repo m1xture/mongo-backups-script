@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import mongoose from "mongoose";
 
 type DataObj = {
   stats: [];
@@ -6,7 +6,7 @@ type DataObj = {
   users: [];
   gifts: [];
   giftrequests: [];
-  levels?: Object[];
+  levels?: object[];
 };
 
 async function dbConnect(): Promise<DataObj | Error> {
@@ -49,7 +49,7 @@ async function dbConnect(): Promise<DataObj | Error> {
       .find({})
       .toArray();
     obj.levels = levels;
-
+    await mongoose.disconnect();
     return obj;
   } catch (err) {
     console.log("Unable to connect to MongoDB Atlas!");
